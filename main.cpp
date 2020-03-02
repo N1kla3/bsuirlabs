@@ -6,8 +6,8 @@
 #include "Conveyer.h"
 
 int main() {
-    vector<int> one(100, 11);
-    vector<int> two(100, 10);
+    vector<int> one{3,5,6,8};
+    vector<int> two{5,9,6,2};
     auto Dx = new Conveyer;
     Dx->calculate(one, two);
 }

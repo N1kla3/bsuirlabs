@@ -25,6 +25,7 @@ private:
      */
     static const int MAX_NUM_TO_CALC = 64;
 
+    int myTimer;
     int stager;//Stage counter
     int firstNum;
     int secondNum;
@@ -41,9 +42,6 @@ private:
     mutex blockCurrent;
     mutex correctPrint;
     mutex stepPrint;
-
-    clock_t start;
-    double time;
 
     void createCurrent(int index);
     void makeProduct();

@@ -12,6 +12,7 @@ void Conveyer::calculate(vector<int> first, vector<int> second) {
     this->first = first;
     this->second = second;
 
+
     printInput();
 
     /**
@@ -20,12 +21,13 @@ void Conveyer::calculate(vector<int> first, vector<int> second) {
     isFinish = false;
     isProductTime = false;
     isSaveTime = false;
-
+    myTimer = 0;
     stager = 0;
+    
     correctPrint.lock();
-    start = clock();
     while(!isFinish){
-        cout << "\nStage" << stager << endl;
+        myTimer++;
+        cout << "\nTact - " << stager+1 << endl;
         thread one(&Conveyer::saveResult, this);
         thread two(&Conveyer::makeProduct, this);
         thread three(&Conveyer::createCurrent, this, stager);
@@ -106,9 +108,6 @@ void Conveyer::makeProduct() {
         result = result >> 1;
         resOfProd = result;
 
-        clock_t b = clock();
-        time = double(b - start) / CLOCKS_PER_SEC;
-        cout << "Time - " << time << endl;
     }else{
         isSaveTime = false;
         blockCurrent.unlock();
@@ -191,7 +190,7 @@ void Conveyer::printStep(int digit, int stepInPrint, int sum, int one, int two) 
  */
 inline void Conveyer::saveResult() {
     if(isSaveTime) {
-        outputVec.push_back(pair(resOfProd, time));
+        outputVec.push_back(pair(resOfProd, myTimer));
         cout << "Save result\n";
         if (outputVec.size() == first.size()) {
             isFinish = true;
@@ -215,10 +214,10 @@ void Conveyer::printInput() {
  * Prints result vector, and time to it calculation
  */
 void Conveyer::printOutput() {
-    cout << "Output result\n";
+    cout << "\nOutput result\n";
     for(int i = 0; i < first.size(); i++){
         cout << "[" << i << "] " << outputVec[i].first
-            << " Time - " <<  outputVec[i].second << endl;
+            << " Tacts - " <<  outputVec[i].second << endl;
     }
 }
 
