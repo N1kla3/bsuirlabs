@@ -45,7 +45,7 @@ private:
 
     void createCurrent(int index);
     void makeProduct();
-    void productStep(int secondP, int &result);
+    void productStep(unsigned int secondP, unsigned int &result);
     void printStep(int digit, int stepInPrint, int sum, int one, int two);
     void saveResult();
     void printOutput();

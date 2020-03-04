@@ -12,7 +12,6 @@ void Conveyer::calculate(vector<int> first, vector<int> second) {
     this->first = first;
     this->second = second;
 
-
     printInput();
 
     /**
@@ -23,7 +22,7 @@ void Conveyer::calculate(vector<int> first, vector<int> second) {
     isSaveTime = false;
     myTimer = 0;
     stager = 0;
-    
+
     correctPrint.lock();
     while(!isFinish){
         myTimer++;
@@ -31,10 +30,10 @@ void Conveyer::calculate(vector<int> first, vector<int> second) {
         thread one(&Conveyer::saveResult, this);
         thread two(&Conveyer::makeProduct, this);
         thread three(&Conveyer::createCurrent, this, stager);
-        stager++;
         one.join();
         two.join();
         three.join();
+        stager++;
     }
     correctPrint.unlock();
     printOutput();
@@ -48,7 +47,6 @@ void Conveyer::calculate(vector<int> first, vector<int> second) {
 void Conveyer::createCurrent(int index) {
     bool isInVector = index >= 0 && index < first.size();
     if(isInVector) {
-
         stepPrint.lock();
         cout << "Get numbers\n";
         stepPrint.unlock();
@@ -61,8 +59,9 @@ void Conveyer::createCurrent(int index) {
         blockCurrent.unlock();
 
         isProductTime = true;
-    }else
+    }else{
         isProductTime = false;
+    }
 }
 
 /**
@@ -79,11 +78,11 @@ void Conveyer::makeProduct() {
         cout << "Index of elements " << pStager-1 << endl;
         stepPrint.unlock();
         isSaveTime = true;
-        int firstP = firstNum;  //Make copy (Because of threads)
-        int secondP = secondNum;//Make copy (Because of threads)
+        unsigned int firstP = firstNum;  //Make copy (Because of threads)
+        unsigned int secondP = secondNum;//Make copy (Because of threads)
         blockCurrent.unlock();
 
-        int result = 0;
+        unsigned int result = 0;
         int size;
         for(int i = MAX_DIGIT_INDEX; i >= 0; i--)
             if(firstP & (1<<i)) {
@@ -107,11 +106,7 @@ void Conveyer::makeProduct() {
         }
         result = result >> 1;
         resOfProd = result;
-
-    }else{
-        isSaveTime = false;
-        blockCurrent.unlock();
-    }
+    }else blockCurrent.unlock();
 }
 
 /**
@@ -120,7 +115,7 @@ void Conveyer::makeProduct() {
  * @param secondP second factor of multiplication
  * @param result saves results of previous steps
  */
-void Conveyer::productStep(int secondP, int &result) {
+void Conveyer::productStep(unsigned int secondP, unsigned int &result) {
     bool balance = false;
     for(int i = 0; i <= MAX_RESULT_DIGIT_INDEX; i++){
         bool ifOne = result & (1<<i);//Check is 1 in Ith digit of result
