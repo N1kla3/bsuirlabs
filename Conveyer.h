@@ -14,6 +14,7 @@ class Conveyer{
 public:
     void calculate(vector<int> first, vector<int> second);
 
+    static void printBinary(int numInTen);
 private:
     /**
      * Maximum number of digits in binary numbers that can be in that programm
@@ -37,7 +38,7 @@ private:
 
     vector<int> first;
     vector<int> second;
-    vector<pair<int, double>> outputVec;
+    vector<pair<int, int>> outputVec;
 
     mutex blockCurrent;
     mutex correctPrint;
@@ -50,8 +51,6 @@ private:
     void saveResult();
     void printOutput();
     void printInput();
-
-    static void printBinary(int numInTen);
 
 };
 

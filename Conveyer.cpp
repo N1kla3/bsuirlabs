@@ -185,7 +185,7 @@ void Conveyer::printStep(int digit, int stepInPrint, int sum, int one, int two) 
  */
 inline void Conveyer::saveResult() {
     if(isSaveTime) {
-        outputVec.push_back(pair(resOfProd, myTimer));
+        outputVec.emplace_back(pair(resOfProd, myTimer));
         cout << "Save result\n";
         if (outputVec.size() == first.size()) {
             isFinish = true;
