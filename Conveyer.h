@@ -30,7 +30,6 @@ private:
     int myTimer;
     int stager;//Stage counter
 
-    vector<int> stepResults;
     vector<int> first;
     vector<int> second;
     vector<pair<int, int>> outputVec;

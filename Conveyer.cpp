@@ -79,7 +79,7 @@ void Conveyer::addToResult(int digit, int index) {
     int secondP = second[index];
     int firstP = first[index];
 
-    if (firstP && (1 << digit)) {
+    if (firstP & (1 << digit)) {
         for (int i = 0; i <= MAX_RESULT_DIGIT_INDEX; i++) {
             bool ifOne = result & (1 << i);//Check is 1 in Ith digit of result
             bool oneOne = secondP & (1 << i) && result & (1 << i);//1 and 1 ?
@@ -137,7 +137,7 @@ void Conveyer::printBinary(int numInTen) {
 
 void Conveyer::printStep(int digit, int index) {
     cout << "----------------------------------------\n";
-    cout << "Step <" << digit << ">" << " at index" << index <<  "\n";
+    cout << "Calculations at digit <" << digit << ">" << " at index" << index <<  "\n";
     first[index] & (1 << digit) ? printBinary(second[index]) : printBinary(0);
     printBinary(outputVec[index].first);
     cout << "----------------------------------------\n";
