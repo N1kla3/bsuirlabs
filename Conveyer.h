@@ -25,30 +25,22 @@ private:
      * Border of calculation to this conveyer
      */
     static const int MAX_NUM_TO_CALC = 64;
+    static const int MIN_NUM_TO_CALC = 32;
 
     int myTimer;
     int stager;//Stage counter
-    int firstNum;
-    int secondNum;
-    int resOfProd;
-
-    bool isProductTime;
-    bool isFinish;
-    bool isSaveTime;
 
     vector<int> first;
     vector<int> second;
     vector<pair<int, int>> outputVec;
 
-    mutex blockCurrent;
-    mutex correctPrint;
-    mutex stepPrint;
+    mutex corPrint;
 
-    void createCurrent(int index);
-    void makeProduct();
-    void productStep(unsigned int secondP, unsigned int &result);
-    void printStep(int digit, int stepInPrint, int sum, int one, int two);
-    void saveResult();
+    void checkVectors(int index);
+
+    void addToResult(int digit, int index);
+    void printStep(int digit, int index);
+
     void printOutput();
     void printInput();
 
