@@ -30,7 +30,7 @@ void Conveyer::calculate(vector<int> first, vector<int> second) {
         cout << "\nTact - " << stager + 1 << endl;
 
         int index = stager;
-        for (int digit = startPoint; digit >= 0; digit--) {
+        for (int digit = 0; digit <= startPoint; digit++) {
             if (index >= 0 && index < sizeOfVectors) {
                 threads.emplace_back(&Conveyer::addToResult, this, digit, index);
             }
@@ -80,6 +80,7 @@ void Conveyer::addToResult(int digit, int index) {
     int firstP = first[index];
 
     if (firstP & (1 << digit)) {
+        secondP = secondP << digit;
         for (int i = 0; i <= MAX_RESULT_DIGIT_INDEX; i++) {
             bool ifOne = result & (1 << i);//Check is 1 in Ith digit of result
             bool oneOne = secondP & (1 << i) && result & (1 << i);//1 and 1 ?
@@ -108,10 +109,6 @@ void Conveyer::addToResult(int digit, int index) {
                 }
             }
         }
-    }
-    //Shifts the result
-    if(digit != 0) {
-        result = result << 1;
     }
     outputVec[index].first = result;
     outputVec[index].second = myTimer;
