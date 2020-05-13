@@ -30,7 +30,7 @@ void Conveyer::calculate(vector<int> first, vector<int> second) {
         cout << "\nTact - " << stager + 1 << endl;
 
         int index = stager;
-        for (int digit = 0; digit <= startPoint; digit++) {
+        for (int digit = startPoint; digit >= 0; digit--) {
             if (index >= 0 && index < sizeOfVectors) {
                 threads.emplace_back(&Conveyer::addToResult, this, digit, index);
             }
@@ -135,7 +135,7 @@ void Conveyer::printBinary(int numInTen) {
 void Conveyer::printStep(int digit, int index) {
     cout << "----------------------------------------\n";
     cout << "Calculations at digit <" << digit << ">" << " at index" << index <<  "\n";
-    first[index] & (1 << digit) ? printBinary(second[index]) : printBinary(0);
+    first[index] & (1 << digit) ? printBinary(second[index]<<digit) : printBinary(0);
     printBinary(outputVec[index].first);
     cout << "----------------------------------------\n";
 }
